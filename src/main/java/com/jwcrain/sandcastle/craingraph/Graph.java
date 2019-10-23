@@ -2,6 +2,7 @@ package com.jwcrain.sandcastle.craingraph;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Graph<T> {
@@ -34,6 +35,12 @@ public class Graph<T> {
     public void setAllNodesUnvisited() {
         for (Node<T> node : vertices) {
             node.setVisited(false);
+        }
+    }
+
+    public void setAllNodesInactive() {
+        for (Node<T> node : vertices) {
+            node.setActive(false);
         }
     }
 
@@ -73,6 +80,49 @@ public class Graph<T> {
         }
 
         setAllNodesUnvisited();
+
+        return null;
+    }
+
+    public boolean hasBackEdges() {
+        for(Node<T> current : vertices) {
+            LinkedList<Node<T>> linkedList = new LinkedList<>();
+
+            linkedList.add(current);
+
+            while(!linkedList.isEmpty()) {
+                current = linkedList.pop();
+
+                if (current.isActive()) {
+                    //System.out.printf("Found back edge %s\n", current.getData());
+
+                    setAllNodesInactive();
+                    return true;
+                }
+
+                current.setActive(true);
+
+                //System.out.printf("Set %s active\n", current.getData());
+
+                for (Node<T> adjacent : current.getAdjacentNodes()) {
+                    linkedList.push(adjacent);
+                }
+            }
+        }
+
+        setAllNodesInactive();
+
+        return false;
+    }
+
+    public List<Node<T>> topologicalSort(Node<T> current) {
+        if (type.equals(GraphType.UNDIRECTED)) {
+            return null;
+        }
+
+        if (hasBackEdges()) {
+            return null;
+        }
 
         return null;
     }

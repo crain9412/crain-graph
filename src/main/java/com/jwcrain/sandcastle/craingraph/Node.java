@@ -6,6 +6,7 @@ public class Node<T> {
     private ArrayList<Node<T>> adjacentNodes = new ArrayList<>();
     private T data;
     private boolean visited = false;
+    private boolean active = false;
 
     public Node(T data) {
         this.data = data;
@@ -29,5 +30,13 @@ public class Node<T> {
 
     public void setVisited(boolean visited) {
         this.visited = visited;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

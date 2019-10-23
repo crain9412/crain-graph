@@ -24,6 +24,8 @@ public class AppTest {
         graph.addNode(mammal);
         graph.addNode(cat);
         graph.addNode(dog);
+        graph.addNode(retriever);
+        graph.addNode(poodle);
 
         graph.addEdge(animal, mammal);
 
@@ -47,6 +49,7 @@ public class AppTest {
         assertEquals(catDepth.getData(), "cat");
         assertNull(nullBreadth);
         assertNull(nullDepth);
+        assertTrue(graph.hasBackEdges());
     }
 
 }
